@@ -1,40 +1,23 @@
 import mongoose from "mongoose";
 
+let isConnected = false; // ✅ Track the connection status
+
 const connectDB = async () => {
+  if (isConnected) {
+    console.log("✅ Already connected to MongoDB.");
+    return;
+  }
+
   try {
-    // ✅ Log the Mongo URI (debugging)
-    console.log("Using URI:", process.env.MONGODB_URI);
+    console.log("🔌 Connecting to MongoDB...");
+    const db = await mongoose.connect(process.env.MONGODB_URI);
 
-    // ✅ Connect
-    await mongoose.connect(process.env.MONGODB_URI);
-
-    // ✅ Success log
-    mongoose.connection.on('connected', () =>
-      console.log("Database connected successfully")
-    );
+    isConnected = db.connections[0].readyState;
+    console.log("✅ MongoDB connection established.");
   } catch (error) {
-    console.error("MongoDB connection error:", error.message);
+    console.error("❌ MongoDB connection error:", error.message);
+    throw error;
   }
 };
 
 export default connectDB;
-
-
-
-
-
-
-// import mongoose from "mongoose";
-
-// const connectDB = async () => {
-// try {
-//     mongoose.connection.on('connected', ()=>console.log("Database connected successfully")
-// )
-//     await mongoose.connect(`${process.env.MONGODB_URI}/QuickBlog`)
-// } catch (error) {
-//     console.log(error.message);
-// }
-
-// }
-
-// export default connectDB;

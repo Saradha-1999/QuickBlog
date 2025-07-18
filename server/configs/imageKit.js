@@ -1,6 +1,15 @@
 import dotenv from "dotenv";
 import ImageKit from "imagekit";
-dotenv.config();
+
+dotenv.config(); // required if running locally, not needed in Vercel runtime
+
+if (
+  !process.env.IMAGE_KIT_PUBLIC_KEY ||
+  !process.env.IMAGE_KIT_PRIVATE_KEY ||
+  !process.env.IMAGE_KIT_URL_ENDPOINT
+) {
+  throw new Error("❌ Missing ImageKit environment variables");
+}
 
 const imagekit = new ImageKit({
   publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
@@ -9,6 +18,7 @@ const imagekit = new ImageKit({
 });
 
 export default imagekit;
+
 
 
 

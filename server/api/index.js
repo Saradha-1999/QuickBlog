@@ -1,10 +1,11 @@
+// server/api/index.js
 import express from 'express';
 import serverless from 'serverless-http';
 import 'dotenv/config';
 import cors from 'cors';
-import connectDB from '../server/configs/db.js'; // Adjust path as needed
-import adminRouter from '../server/routes/adminRoutes.js';
-import blogRouter from '../server/routes/blogRoutes.js';
+import connectDB from '../configs/db.js'; // Make sure the path is correct
+import adminRouter from '../routes/adminRoutes.js';
+import blogRouter from '../routes/blogRoutes.js';
 
 const app = express();
 await connectDB();
