@@ -5,7 +5,12 @@
       "src": "server/server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["server/api/**/*"]
+        "includeFiles": [
+          "server/configs/**",
+          "server/routes/**",
+          "server/models/**",
+          "server/controllers/**"
+        ]
       }
     }
   ],
